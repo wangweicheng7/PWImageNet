@@ -58,7 +58,6 @@
 		EA25F4631D2D1A4D00F6CFD3 /* PWImageNet.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PWImageNet.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA25F4651D2D1A4D00F6CFD3 /* PWImageNet.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWImageNet.h; sourceTree = "<group>"; };
 		EA25F4671D2D1A4D00F6CFD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EA25F4701D2D1A6D00F6CFD3 /* module.map */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.module-map"; path = module.map; sourceTree = "<group>"; };
 		EA25F4711D2D1A6D00F6CFD3 /* PWConstansts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWConstansts.swift; sourceTree = "<group>"; };
 		EA25F4721D2D1A6D00F6CFD3 /* PWDataCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWDataCache.swift; sourceTree = "<group>"; };
 		EA25F4731D2D1A6D00F6CFD3 /* PWDataDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWDataDownloader.swift; sourceTree = "<group>"; };
@@ -120,7 +119,6 @@
 		EA25F4641D2D1A4D00F6CFD3 /* PWImageNet */ = {
 			isa = PBXGroup;
 			children = (
-				EA25F4701D2D1A6D00F6CFD3 /* module.map */,
 				EA25F4711D2D1A6D00F6CFD3 /* PWConstansts.swift */,
 				EA25F4721D2D1A6D00F6CFD3 /* PWDataCache.swift */,
 				EA25F4731D2D1A6D00F6CFD3 /* PWDataDownloader.swift */,
@@ -442,7 +440,6 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "";
-				"MODULEMAP_FILE[sdk=iphoneos*]" = "${SRCROOT}/PWImageNet/module.map";
 				PRODUCT_BUNDLE_IDENTIFIER = PW.PWImageNet;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

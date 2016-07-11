@@ -48,7 +48,10 @@ class ViewController: UIViewController {
         view.addSubview(btn)
         btn.addTarget(self, action: #selector(ViewController.reloadImage), forControlEvents: .TouchUpInside)
         
+//        PWDataCache.shareInstance.clearExpiredCacheFromDisk()
         
+        
+//        PWDataCache.shareInstance.diskCacheSize()
     }
     
     func reloadImage() {

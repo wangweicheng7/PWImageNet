@@ -1,0 +1,10 @@
+framework module PWImageNet {
+  umbrella header "PWImageNet.h"
+
+  export *
+  module * { export * }
+}
+
+module PWImageNet.Swift {
+    header "PWImageNet-Swift.h"
+}

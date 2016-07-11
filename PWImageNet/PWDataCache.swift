@@ -9,11 +9,14 @@
 import UIKit
 //import CommonCrypto
 //import CommonCrypto
+let cacheQueue = dispatch_queue_create("com.putao.imageCache.queue", DISPATCH_QUEUE_SERIAL)
 
 public class PWDataCache: NSObject {
     
     // 是否加载到内存中，如果选择false，则缓存在磁盘的文件每次都从磁盘加载
     public var cacheType : PWImageNetCacheType = .MemoryAndDisk
+    /// 磁盘缓存大小，默认100MB
+    public var maxDiskCacheSize : Int = 2
     
     private let cache = NSCache()
     
@@ -21,7 +24,8 @@ public class PWDataCache: NSObject {
         struct __ {
             static let instance = PWDataCache()
         }
-        __.instance.cache.countLimit = 500
+//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PWDataCache.cacheOnDisk(_:key:)), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
+//        __.instance.cache.countLimit = 500
         return __.instance
     }
     
@@ -185,8 +189,136 @@ public class PWDataCache: NSObject {
     }
     
     /****************** clean cache ******************/
-    public func clearDisk() -> Bool {
-        // TODO: 敬请期待
-        return true
+    
+    public func clearExpiredCacheFromDisk() {
+        let fileManager = NSFileManager.defaultManager()
+        
+        let filePaths = fileManager.subpathsAtPath(DISK_CACHE_PATH)
+        
+        dispatch_async(cacheQueue) {
+            
+            
+            var diskCacheSize = self.diskCacheSize()
+            
+            if self.maxDiskCacheSize > 0 && (self.maxDiskCacheSize * 1024 * 1024) < diskCacheSize {
+                
+                // 文件按日期升序排序
+                let sortPaths = filePaths?.sort({ (firstPath, secondPath) -> Bool in
+                    let first = DISK_CACHE_PATH.stringByAppendingString(firstPath)
+                    let second = DISK_CACHE_PATH.stringByAppendingString(secondPath)
+                    do {
+                        let firstFileInfo = try fileManager.attributesOfItemAtPath(first)
+                        let secondFileInfo = try fileManager.attributesOfItemAtPath(second)
+                        
+                        if let firstDate = firstFileInfo[NSFileModificationDate] as? NSDate,
+                            secondDate = secondFileInfo[NSFileModificationDate] as? NSDate {
+                            return firstDate.compare(secondDate) == .OrderedAscending
+                        }
+                        return true
+                        
+                    } catch _ {
+                        print("获取文件信息失败")
+                        return false
+                    }
+                })
+                
+                for filePath in sortPaths! {
+                    
+                    let fileSize = self.diskCacheSize(DISK_CACHE_PATH + filePath)
+                    do {
+                        try fileManager.removeItemAtPath(DISK_CACHE_PATH + filePath)
+                        diskCacheSize -= fileSize
+                    } catch _ {
+                        
+                    }
+                    if diskCacheSize <= ((self.maxDiskCacheSize * 1024 * 1024)/2) {
+                        return
+                    }
+                }
+                
+            }
+            
+        }
+        
     }
+    
+    public func clearAllCacheFromDisk() {
+        
+        dispatch_async(cacheQueue) { 
+            let path = DISK_CACHE_PATH
+            let fileManager = NSFileManager.defaultManager()
+            if fileManager.isExecutableFileAtPath(path) {
+                
+            }
+            do {
+                let fileNames = try fileManager.contentsOfDirectoryAtPath(path)
+                print(fileNames)
+                for file in fileNames {
+                    try fileManager.removeItemAtPath(DISK_CACHE_PATH.stringByAppendingString(file))
+                }
+                
+            }catch _ {
+                print(ERROR_REMOVE_MSG)
+            }
+        }
+    }
+
+}
+
+extension PWDataCache {
+    
+    func diskCacheSize(path: String) -> Int {
+        let fileManager = NSFileManager.defaultManager()
+        
+        if !fileManager.fileExistsAtPath(DISK_CACHE_PATH) {
+            return 0
+        }
+        
+        var fileSize = 0
+        
+        do {
+            let fileAttrDic = try fileManager.attributesOfItemAtPath(path)
+            fileSize = fileAttrDic[NSFileSize] as! Int
+            
+        } catch _ {
+            
+        }
+        return fileSize
+    }
+    
+    public func diskCacheSize() -> Int {
+        
+        let fileManager = NSFileManager.defaultManager()
+        
+        if !fileManager.fileExistsAtPath(DISK_CACHE_PATH) {
+            return 0
+        }
+        
+        var diskCacheSize = 0
+        
+        let fileNames : [String]? = fileManager.subpathsAtPath(DISK_CACHE_PATH)
+        
+        if let _fileNames = fileNames {
+        
+            for ( _, fileName) in _fileNames.enumerate() {
+                do {
+                    let fileAttrDic = try fileManager.attributesOfItemAtPath(DISK_CACHE_PATH + fileName)
+                    let fileSize = fileAttrDic[NSFileSize] as! Int
+                    
+                    diskCacheSize += fileSize
+                    
+                } catch _ {
+                    
+                }
+            }
+
+        } else {
+            print("获取文件名失败")
+            return 0
+        }
+        
+        return diskCacheSize
+        
+    }
+    
 }

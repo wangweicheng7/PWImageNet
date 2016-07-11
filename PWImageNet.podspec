@@ -14,7 +14,7 @@ Pod::Spec.new do |s|
 
   s.description  = "PWImageNet is used to load image from net. Support gif, png, jpg, tiff and so on. You can chose cache type in memory and disk"
 
-  s.homepage     = "https://github.com/wangweicheng7/PWImageNet"
+  s.homepage     = "https://github.com/wangweicheng7/PWImageNet/"
 
   s.license      = "MIT"
 
@@ -27,5 +27,5 @@ Pod::Spec.new do |s|
 # s.exclude_files = "PWImageNet/module.map"
 # s.frameworks = 'PWImageNet/module.map/CommonDigest'
 # s.module_name = "CommonDigest"
-  s.preserve_path = 'PWImageNet/module.map'
+#  s.preserve_path = 'PWImageNet/module.map'
 end
