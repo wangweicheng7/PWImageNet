@@ -24,9 +24,16 @@ public class PWDataCache: NSObject {
         struct __ {
             static let instance = PWDataCache()
         }
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PWDataCache.cacheOnDisk(_:key:)), name: UIApplicationDidReceiveMemoryWarningNotification, object: nil)
 //        __.instance.cache.countLimit = 500
         return __.instance
+    }
+    
+    override init() {
+        super.init()
+        // 进入后台后，检查一次缓存
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(PWDataCache.clearExpiredCacheFromDisk), name: UIApplicationDidEnterBackgroundNotification, object: nil)
+
+
     }
     
     /**
