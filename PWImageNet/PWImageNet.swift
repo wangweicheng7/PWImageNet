@@ -9,6 +9,7 @@
 import UIKit
 
 public class PWImageNet: NSObject {
+    
 
     /**
      从网络拉取图片
@@ -29,21 +30,18 @@ public class PWImageNet: NSObject {
         if let imageData = PWDataCache.shareInstance.dataFromCache(url.absoluteString) {
             dispatch_async(dispatch_get_main_queue(), {
                 
-                if UIImage.contentType(imageData) == PWImageType.GIF {
-                    
-                    completionHandler(image: UIImage.animatedImage(data: imageData), error: nil, url: url, source: .Cache)
-                    return
-                }
-                
-                completionHandler(image: UIImage(data: imageData), error: nil, url: url, source: .Cache)
+                    completionHandler(image: UIImage.imageFormat(imageData), error: nil, url: url, source: .Cache)
             })
             return
         }
-                
-        PWDataDownloader.downloadInstance().imageData(url, progressClosure: progress) { (data, error, url, source) in
+        
+
+        let downloader = PWDataDownloader(url: url)
+        downloader.startDownload(progress: progress) { (data, error, url, source) in
+            
                 // data is not nil
                 if let data = data {
-                    let image = UIImage(data: data)
+                    let image = UIImage.imageFormat(data)
                     // image load success
                     if image != nil {
                         completionHandler(image: image,error: error, url: url, source: .Net)
@@ -66,7 +64,5 @@ public class PWImageNet: NSObject {
         }
         
     }
-    
-    
     
 }

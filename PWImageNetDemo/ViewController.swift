@@ -14,7 +14,6 @@ class ViewController: UIViewController {
     var imageView : UIImageView?
     var progressView : UIProgressView?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
@@ -22,6 +21,7 @@ class ViewController: UIViewController {
         let width = UIScreen.mainScreen().bounds.width
         let height = UIScreen.mainScreen().bounds.height
         
+//        PWDataDownloader.downloadInstance()
         
         imageView = UIImageView(frame: CGRectMake(0, 0, width, height - 64))
         view.addSubview(imageView!)
@@ -46,15 +46,22 @@ class ViewController: UIViewController {
         btn.frame = CGRectMake(0, height - 40, width, 40)
         btn.backgroundColor = UIColor.redColor()
         view.addSubview(btn)
-        btn.addTarget(self, action: #selector(ViewController.reloadImage), forControlEvents: .TouchUpInside)
+        btn.addTarget(self, action: #selector(ViewController.buttonClicked), forControlEvents: .TouchUpInside)
         
 
+    }
+    
+    func buttonClicked() {
+        let tableVC = PWTableViewController()
+        
+        navigationController?.pushViewController(tableVC, animated: true)
     }
     
     func reloadImage() {
         
 //        let url = NSURL(string: "https://s-media-cache-ak0.pinimg.com/564x/5d/cd/54/5dcd54555e9a58dd7aedbc9d73d084cd.jpg")
-        let url = NSURL(string: "https://s-media-cache-ak0.pinimg.com/originals/ad/6d/ba/ad6dbabe9d08d67ffe465134c43eedc2.gif")
+        let url = NSURL(string: "https://s-media-cache-ak0.pinimg.com/originals/99/4c/60/994c6054b1fc2f9b7ff7647650b5f265.gif")
+//        let url = NSURL(string: "https://s-media-cache-ak0.pinimg.com/originals/ad/6d/ba/ad6dbabe9d08d67ffe465134c43eedc2.gif")
         
         //        PWImageNetCacheType
         

@@ -17,10 +17,15 @@
 		EA25F46B1D2D1A4D00F6CFD3 /* PWImageNet.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EA25F4631D2D1A4D00F6CFD3 /* PWImageNet.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EA25F4761D2D1A6D00F6CFD3 /* PWConstansts.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25F4711D2D1A6D00F6CFD3 /* PWConstansts.swift */; };
 		EA25F4771D2D1A6D00F6CFD3 /* PWDataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25F4721D2D1A6D00F6CFD3 /* PWDataCache.swift */; };
-		EA25F4781D2D1A6D00F6CFD3 /* PWDataDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25F4731D2D1A6D00F6CFD3 /* PWDataDownloader.swift */; };
+		EA25F4781D2D1A6D00F6CFD3 /* PWTransferManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25F4731D2D1A6D00F6CFD3 /* PWTransferManager.swift */; };
 		EA25F4791D2D1A6D00F6CFD3 /* PWImageNet.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25F4741D2D1A6D00F6CFD3 /* PWImageNet.swift */; };
 		EA25F47A1D2D1A6D00F6CFD3 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25F4751D2D1A6D00F6CFD3 /* StringExtension.swift */; };
 		EA25F47C1D2DFDD100F6CFD3 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA25F47B1D2DFDD100F6CFD3 /* UIImageExtension.swift */; };
+		EAE619C21D34BD570089F634 /* PWDataDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE619C11D34BD570089F634 /* PWDataDownloader.swift */; };
+		EAE619C51D34C1990089F634 /* PWTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE619C31D34C1990089F634 /* PWTableViewController.swift */; };
+		EAE619C61D34C1990089F634 /* PWTableViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE619C41D34C1990089F634 /* PWTableViewController.xib */; };
+		EAE619C91D34C2360089F634 /* PWTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAE619C71D34C2360089F634 /* PWTableViewCell.swift */; };
+		EAE619CA1D34C2360089F634 /* PWTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = EAE619C81D34C2360089F634 /* PWTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,10 +65,15 @@
 		EA25F4671D2D1A4D00F6CFD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EA25F4711D2D1A6D00F6CFD3 /* PWConstansts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWConstansts.swift; sourceTree = "<group>"; };
 		EA25F4721D2D1A6D00F6CFD3 /* PWDataCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWDataCache.swift; sourceTree = "<group>"; };
-		EA25F4731D2D1A6D00F6CFD3 /* PWDataDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWDataDownloader.swift; sourceTree = "<group>"; };
+		EA25F4731D2D1A6D00F6CFD3 /* PWTransferManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWTransferManager.swift; sourceTree = "<group>"; };
 		EA25F4741D2D1A6D00F6CFD3 /* PWImageNet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWImageNet.swift; sourceTree = "<group>"; };
 		EA25F4751D2D1A6D00F6CFD3 /* StringExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		EA25F47B1D2DFDD100F6CFD3 /* UIImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
+		EAE619C11D34BD570089F634 /* PWDataDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWDataDownloader.swift; sourceTree = "<group>"; };
+		EAE619C31D34C1990089F634 /* PWTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWTableViewController.swift; sourceTree = "<group>"; };
+		EAE619C41D34C1990089F634 /* PWTableViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PWTableViewController.xib; sourceTree = "<group>"; };
+		EAE619C71D34C2360089F634 /* PWTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PWTableViewCell.swift; sourceTree = "<group>"; };
+		EAE619C81D34C2360089F634 /* PWTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PWTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +122,10 @@
 				EA25F4531D2D1A3000F6CFD3 /* Assets.xcassets */,
 				EA25F4551D2D1A3100F6CFD3 /* LaunchScreen.storyboard */,
 				EA25F4581D2D1A3100F6CFD3 /* Info.plist */,
+				EAE619C31D34C1990089F634 /* PWTableViewController.swift */,
+				EAE619C41D34C1990089F634 /* PWTableViewController.xib */,
+				EAE619C71D34C2360089F634 /* PWTableViewCell.swift */,
+				EAE619C81D34C2360089F634 /* PWTableViewCell.xib */,
 			);
 			path = PWImageNetDemo;
 			sourceTree = "<group>";
@@ -121,12 +135,13 @@
 			children = (
 				EA25F4711D2D1A6D00F6CFD3 /* PWConstansts.swift */,
 				EA25F4721D2D1A6D00F6CFD3 /* PWDataCache.swift */,
-				EA25F4731D2D1A6D00F6CFD3 /* PWDataDownloader.swift */,
+				EA25F4731D2D1A6D00F6CFD3 /* PWTransferManager.swift */,
 				EA25F4741D2D1A6D00F6CFD3 /* PWImageNet.swift */,
 				EA25F4751D2D1A6D00F6CFD3 /* StringExtension.swift */,
 				EA25F47B1D2DFDD100F6CFD3 /* UIImageExtension.swift */,
 				EA25F4651D2D1A4D00F6CFD3 /* PWImageNet.h */,
 				EA25F4671D2D1A4D00F6CFD3 /* Info.plist */,
+				EAE619C11D34BD570089F634 /* PWDataDownloader.swift */,
 			);
 			path = PWImageNet;
 			sourceTree = "<group>";
@@ -194,6 +209,7 @@
 				TargetAttributes = {
 					EA25F4481D2D1A3000F6CFD3 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 3B89Q3LKCK;
 					};
 					EA25F4621D2D1A4D00F6CFD3 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -224,6 +240,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE619CA1D34C2360089F634 /* PWTableViewCell.xib in Resources */,
+				EAE619C61D34C1990089F634 /* PWTableViewController.xib in Resources */,
 				EA25F4571D2D1A3100F6CFD3 /* LaunchScreen.storyboard in Resources */,
 				EA25F4541D2D1A3000F6CFD3 /* Assets.xcassets in Resources */,
 				EA25F4521D2D1A3000F6CFD3 /* Main.storyboard in Resources */,
@@ -244,7 +262,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EAE619C51D34C1990089F634 /* PWTableViewController.swift in Sources */,
 				EA25F44F1D2D1A3000F6CFD3 /* ViewController.swift in Sources */,
+				EAE619C91D34C2360089F634 /* PWTableViewCell.swift in Sources */,
 				EA25F44D1D2D1A3000F6CFD3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,8 +276,9 @@
 				EA25F4791D2D1A6D00F6CFD3 /* PWImageNet.swift in Sources */,
 				EA25F4761D2D1A6D00F6CFD3 /* PWConstansts.swift in Sources */,
 				EA25F47A1D2D1A6D00F6CFD3 /* StringExtension.swift in Sources */,
+				EAE619C21D34BD570089F634 /* PWDataDownloader.swift in Sources */,
 				EA25F4771D2D1A6D00F6CFD3 /* PWDataCache.swift in Sources */,
-				EA25F4781D2D1A6D00F6CFD3 /* PWDataDownloader.swift in Sources */,
+				EA25F4781D2D1A6D00F6CFD3 /* PWTransferManager.swift in Sources */,
 				EA25F47C1D2DFDD100F6CFD3 /* UIImageExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -381,11 +402,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = PWImageNetDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = PW.PWImageNetDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -393,11 +418,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				EMBEDDED_CONTENT_CONTAINS_SWIFT = YES;
 				INFOPLIST_FILE = PWImageNetDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = PW.PWImageNetDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -413,6 +442,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/PWImageNet/module.map";
 				INFOPLIST_FILE = PWImageNet/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = PW.PWImageNet;
@@ -438,6 +468,7 @@
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/PWImageNet/module.map";
 				INFOPLIST_FILE = PWImageNet/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "";
 				PRODUCT_BUNDLE_IDENTIFIER = PW.PWImageNet;

@@ -7,8 +7,7 @@
 //
 
 import UIKit
-//import CommonCrypto
-//import CommonCrypto
+
 let cacheQueue = dispatch_queue_create("com.putao.imageCache.queue", DISPATCH_QUEUE_SERIAL)
 
 public class PWDataCache: NSObject {
@@ -271,9 +270,17 @@ public class PWDataCache: NSObject {
     }
 
 }
-
+// MARK: - 计算缓存大小
 extension PWDataCache {
-    
+    /**
+     计算指定路径的文件大小
+     
+     - author: wangweicheng
+     
+     - parameter path: 路径
+     
+     - returns: 文件大小
+     */
     func diskCacheSize(path: String) -> Int {
         let fileManager = NSFileManager.defaultManager()
         
@@ -292,7 +299,13 @@ extension PWDataCache {
         }
         return fileSize
     }
-    
+    /**
+     计算根目录下所有文件大小
+     
+     - author: wangweicheng
+     
+     - returns: 文件大小
+     */
     public func diskCacheSize() -> Int {
         
         let fileManager = NSFileManager.defaultManager()

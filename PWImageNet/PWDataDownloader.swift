@@ -1,51 +1,44 @@
 //
 //  PWDataDownloader.swift
-//  PWImageNet
+//  PWImageNetDemo
 //
-//  Created by 王炜程 on 16/7/4.
+//  Created by 王炜程 on 16/7/12.
 //  Copyright © 2016年 weicheng wang. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
-class PWDataDownloader: NSObject, NSURLSessionDataDelegate {
+class PWDataDownloader: NSObject,NSURLSessionDataDelegate {
     
-    private var completionHandler : PWDataDownloadCompletionClosure?
-    private var progressClosure : PWDataDownloadProgressClosure?
+    var completionHandler : PWDataDownloadCompletionClosure?
+    var progressClosure : PWDataDownloadProgressClosure?
+        
     private var imageData : NSMutableData?
     private var session : NSURLSession!
-    private var url : NSURL?
+    
     private var expectedTotalSize : Int64 = 0
     private var downloadTotalSize : Int64 = 0
     private var timeout : Int?
     
-    /**
-     一个下载的实例，session 也不是单例
-     
-     - author: wangweicheng
-     
-     - returns: 下载实例
-     */
-    class func downloadInstance() -> PWDataDownloader {
-        
-        let downloader = PWDataDownloader()
+    var url : NSURL?
+    //    var dataTask : NSURLSessionDataTask?
+    
+    init(url : NSURL) {
+        super.init()
+
         let sessionConfig = NSURLSessionConfiguration.defaultSessionConfiguration()
         sessionConfig.timeoutIntervalForRequest = 120
-        NSURLSession.sharedSession()
-        let session = NSURLSession(configuration: sessionConfig,delegate: downloader, delegateQueue: NSOperationQueue.mainQueue())
-        downloader.session = session
-        
-        
-        return downloader
+        self.session = NSURLSession(configuration: sessionConfig,delegate: self, delegateQueue: NSOperationQueue.mainQueue())
+        self.url = url
     }
     
-    
-    func downloadImageData(url : NSURL, completionHandler : PWDataDownloadCompletionClosure) {
-        imageData(url, progressClosure: nil, completionHandler: completionHandler)
-    
+    override init() {
+        super.init()
+        fatalError("请使用 init(url : NSURL) 初始化")
     }
     
-    func imageData(url: NSURL, progressClosure: PWDataDownloadProgressClosure?, completionHandler: PWDataDownloadCompletionClosure?) {
+    /*
+    func startWork(url: NSURL, progressClosure: PWDataDownloadProgressClosure?, completionHandler: PWDataDownloadCompletionClosure?) {
         
         self.completionHandler = completionHandler
         self.url = url
@@ -55,12 +48,35 @@ class PWDataDownloader: NSObject, NSURLSessionDataDelegate {
         let dataTask = session.dataTaskWithURL(url)
         dataTask.resume()
     }
-
+ */
+    
+    func startDownload(progress progressClosure: PWDataDownloadProgressClosure?, completion completionHandler: PWDataDownloadCompletionClosure?) {
+        
+        self.completionHandler = completionHandler
+        self.progressClosure    = progressClosure
+        
+        PWTransferManager.addDownloader(self)
+        
+        // 如果任务在进行中，中断
+        if PWTransferManager.isDownloading(self) {
+            return
+        }
+        
+        guard let url = url else {
+            print("没有可用的url")
+            return
+        }
+        
+        // request data from url
+        let dataTask = session.dataTaskWithURL(url)
+        dataTask.resume()
+    }
+    
     // MARK: NSURLSessionDataDelegate
     func URLSession(session: NSURLSession, dataTask: NSURLSessionDataTask, didReceiveResponse response: NSURLResponse, completionHandler: (NSURLSessionResponseDisposition) -> Void) {
         
         expectedTotalSize = response.expectedContentLength
-
+        
         if response.expectedContentLength <= 0 {
             completionHandler(.Cancel)
             return
@@ -79,29 +95,42 @@ class PWDataDownloader: NSObject, NSURLSessionDataDelegate {
         
         downloadTotalSize += data.length
         
-        if let progressClosure = progressClosure {
-            progressClosure(receivedSize: downloadTotalSize, expectedSize: expectedTotalSize)
+        let downloaders = PWTransferManager.downloadersForURL(url!)
+        if downloaders != nil {
+            
+            for downloader in downloaders! {
+                if downloader.progressClosure != nil {
+                    downloader.progressClosure!(receivedSize: downloadTotalSize, expectedSize: expectedTotalSize)
+                }
+            }
         }
+        
         print(downloadTotalSize, expectedTotalSize)
         
         imageData.appendData(data)
-        
     }
     
     func URLSession(session: NSURLSession, task: NSURLSessionTask, didCompleteWithError error: NSError?) {
         
         session.invalidateAndCancel()
         
-        guard let completionHandler = completionHandler else {
-            return
+        let downloaders = PWTransferManager.downloadersForURL(url!)
+        if downloaders != nil {
+            
+            for downloader in downloaders! {
+                if downloader.completionHandler != nil {
+                    downloader.completionHandler!(data: imageData, error: error, url: url!, source: .Net)
+                }
+            }
+            PWTransferManager.removeDownloadForURL(url!)
         }
-        completionHandler(data: imageData, error: error, url: url!, source: .Net)
         
         guard let imageData = imageData else {
             return
         }
         // 缓存到磁盘
         PWDataCache.shareInstance.cacheOnMemoryAndDisk(imageData, key: url!.absoluteString)
-
+        
     }
+    
 }

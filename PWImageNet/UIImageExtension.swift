@@ -19,6 +19,14 @@ enum PWImageType {
 
 extension UIImage {
     
+    class func imageFormat(data: NSData) -> UIImage? {
+        if UIImage.contentType(data) == PWImageType.GIF {
+            return UIImage.animatedImage(data: data)
+        }else{
+            return UIImage(data: data)
+        }
+    }
+    
     class func contentType(url: NSURL) -> PWImageType {
         
         if let type = url.pathExtension {
@@ -103,7 +111,7 @@ extension UIImage {
             }
         }
         
-        // Heyhey
+    
         let animation = UIImage.animatedImageWithImages(frames,
                                                         duration: Double(duration) / 1000.0)
         return animation
